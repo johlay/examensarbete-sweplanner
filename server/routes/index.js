@@ -3,6 +3,6 @@ const router = express.Router();
 
 router.get("/", (req, res) => res.sendStatus(200));
 
-router.get("/user", require("./user_router"));
+router.use("/user", require("./user_router"));
 
 module.exports = router;
