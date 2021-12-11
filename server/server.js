@@ -1,7 +1,4 @@
-require("dotenv").config();
-
-const port = process.env.PORT || 3000;
-const db_connection = process.env.MONGO_DB_CONNECTION;
+const { port, db_connection } = require("./config");
 
 // Server setup
 const express = require("express");
