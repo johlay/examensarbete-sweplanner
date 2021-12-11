@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const port = process.env.PORT || 3000;
-const uri = process.env.MONGO_DB_URI;
+const db_connection = process.env.MONGO_DB_CONNECTION;
 
 // Server setup
 const express = require("express");
@@ -13,11 +13,14 @@ const db = mongoose.connection;
 
 // Cors
 const cors = require("cors");
-app.use(cors);
+app.use(cors());
 
 // Middlewares
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+// Routes
+app.use("/api/v1", require("./routes"));
 
 // Server
 app.listen(port, (err) => {
@@ -27,7 +30,7 @@ app.listen(port, (err) => {
 });
 
 // Database connection
-mongoose.connect(uri, {
+mongoose.connect(db_connection, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
