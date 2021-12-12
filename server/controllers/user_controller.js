@@ -40,7 +40,7 @@ const login = async (req, res) => {
         expiresIn: jwt_access_token_expires,
       });
 
-      // return jwt token as a response.
+      // return jwt token and payload as a response.
       return res.status(200).json({
         status: "success",
         message: "Authentication was successful",
