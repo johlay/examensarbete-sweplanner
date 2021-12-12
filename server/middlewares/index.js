@@ -1,7 +1,7 @@
 const { jwt_access_token_secret } = require("../config");
 const jwt = require("jsonwebtoken");
 
-const validateJwtAccessToken = (req, res, next) => {
+const verifyJwtAccessToken = (req, res, next) => {
   const { authorization } = req.headers;
 
   // Remove "Bearer " from authorization header
@@ -39,4 +39,4 @@ const validateJwtAccessToken = (req, res, next) => {
   }
 };
 
-module.exports = { validateJwtAccessToken };
+module.exports = { verifyJwtAccessToken };
