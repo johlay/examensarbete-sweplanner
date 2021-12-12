@@ -1,8 +1,58 @@
 const bcrypt = require("bcrypt");
-const { password_hash_saltrounds } = require("../config");
+const jwt = require("jsonwebtoken");
+const {
+  jwt_access_token_secret,
+  jwt_access_token_expires,
+  password_hash_saltrounds,
+} = require("../config");
 
 // Import Model
 const User = require("../models/user_model");
+
+// POST - login an user
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email }).exec();
+
+    // Checks if user exists, return error messsage if authentication was unsuccessful
+    if (!user) {
+      return res
+        .status(403)
+        .json({ status: "error", message: "Authentication was unsuccessful" });
+    }
+
+    // Validating password by comparing with stored hash in database.
+    if (!(await bcrypt.compare(password, user.password))) {
+      return res
+        .status(403)
+        .json({ status: "error", message: "Authentication was unsuccessful" });
+    } else {
+      // clean out user's password
+      user.password = undefined;
+
+      // payload
+      const payload = user;
+
+      // use JWT to sign payload and get access token
+      const jwt_access_token = jwt.sign({ payload }, jwt_access_token_secret, {
+        expiresIn: jwt_access_token_expires,
+      });
+
+      // return jwt token as a response.
+      return res.status(200).json({
+        status: "success",
+        message: "Authentication was successful",
+        data: { access_token: jwt_access_token, user: payload },
+      });
+    }
+  } catch (error) {
+    return res
+      .status(401)
+      .json({ status: "error", message: "Authentication was unsuccessful" });
+  }
+};
 
 // POST - register a new user
 const register = async (req, res) => {
@@ -59,4 +109,4 @@ const register = async (req, res) => {
   }
 };
 
-module.exports = { register };
+module.exports = { login, register };
