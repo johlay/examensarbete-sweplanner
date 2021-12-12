@@ -109,4 +109,41 @@ const register = async (req, res) => {
   }
 };
 
-module.exports = { login, register };
+// PUT - save user's search results (from, to)
+const user_search_update = async (req, res) => {
+  const { _id } = req.user.payload;
+  const { search_results } = req.body;
+
+  const payload = { $push: { search_results } };
+
+  try {
+    const userExists = await User.findById(_id);
+
+    // Checks if user exists, return error messsage if authentication was unsuccessful
+    if (!userExists) {
+      return res
+        .status(403)
+        .json({ status: "error", message: "Authentication was unsuccessful" });
+    }
+
+    // Find user by id and update the user's array list of search results
+    await User.findByIdAndUpdate(_id, payload, { new: true }).exec(function (
+      err,
+      result
+    ) {
+      // if user does not exist in db - return status code: 404
+      if (err) res.sendStatus(404);
+      else {
+        return res.status(200).json({
+          status: "success",
+          message: "Successfully updated user's list of search results",
+          data: result,
+        });
+      }
+    });
+  } catch (error) {
+    return res.status(500).json({ status: "error", message: error.message });
+  }
+};
+
+module.exports = { login, register, user_search_update };
