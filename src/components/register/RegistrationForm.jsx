@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import useAuthContext from "../../hooks/useAuthContext";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import ErrorBox from "../partials/ErrorBox";
@@ -9,8 +10,9 @@ const RegistrationForm = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const confirmPasswordRef = useRef("");
-
   const [error, setError] = useState(null);
+
+  const { register } = useAuthContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,6 +28,23 @@ const RegistrationForm = () => {
         "Password is too short. It needs to be at least six characters."
       );
     }
+
+    register({
+      first_name: firstNameRef.current.value,
+      last_name: lastNameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    })
+      .then((data) => {
+        if (data.status === 201) {
+          // show modal which confirms successful registration
+        } else {
+          return setError(data.data.message);
+        }
+      })
+      .catch(() => {
+        return setError("An error occured. Please try again!");
+      });
   };
 
   return (
@@ -39,9 +58,7 @@ const RegistrationForm = () => {
         </Form.Group>
 
         <Form.Group id="last-name" className="mb-3">
-          <Form.Label auto className="text-light">
-            Last name
-          </Form.Label>
+          <Form.Label className="text-light">Last name</Form.Label>
           <Form.Control type="text" ref={lastNameRef} required />
         </Form.Group>
 

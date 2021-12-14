@@ -20,14 +20,14 @@ const login = async (req, res) => {
     if (!user) {
       return res
         .status(403)
-        .json({ status: "error", message: "Authentication was unsuccessful" });
+        .json({ status: "error", message: "Authentication was unsuccessful." });
     }
 
     // Validating password by comparing with stored hash in database.
     if (!(await bcrypt.compare(password, user.password))) {
       return res
         .status(403)
-        .json({ status: "error", message: "Authentication was unsuccessful" });
+        .json({ status: "error", message: "Authentication was unsuccessful." });
     } else {
       // clean out user's password
       user.password = undefined;
@@ -43,14 +43,14 @@ const login = async (req, res) => {
       // return jwt token and payload as a response.
       return res.status(200).json({
         status: "success",
-        message: "Authentication was successful",
+        message: "Authentication was successful.",
         data: { access_token: jwt_access_token, user: payload },
       });
     }
   } catch (error) {
     return res
       .status(401)
-      .json({ status: "error", message: "Authentication was unsuccessful" });
+      .json({ status: "error", message: "Authentication was unsuccessful." });
   }
 };
 
@@ -65,9 +65,9 @@ const register = async (req, res) => {
     try {
       hashedPassword = await bcrypt.hash(password, password_hash_saltrounds);
     } catch (error) {
-      res.status(500).json({
+      return res.status(500).json({
         status: "error",
-        message: "Error occured while hashing the password",
+        message: "Error occured while hashing the password.",
       });
     }
 
@@ -85,7 +85,7 @@ const register = async (req, res) => {
         },
         function (err, result) {
           if (err) {
-            res.status(500).json({ status: "error", message: err });
+            return res.status(500).json({ status: "error", message: err });
           } else {
             return res.status(201).json({
               status: "success",
@@ -98,13 +98,13 @@ const register = async (req, res) => {
     } else {
       return res.status(409).json({
         status: "error",
-        message: `Email already exists`,
+        message: `The email address you have entered is already registered.`,
       });
     }
   } catch (error) {
     return res.status(500).json({
       status: "error",
-      message: "Failed to create a new user",
+      message: "Failed to create a new user.",
     });
   }
 };
