@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import ErrorBox from "../partials/ErrorBox";
 
 const RegistrationForm = () => {
   const firstNameRef = useRef("");
@@ -9,13 +10,28 @@ const RegistrationForm = () => {
   const passwordRef = useRef("");
   const confirmPasswordRef = useRef("");
 
+  const [error, setError] = useState(null);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // checks if password matches each other
+    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+      return setError("Passwords doesn't match each other.");
+    }
+
+    // checks if password is at least six characters.
+    if (passwordRef.current.value.length < 6) {
+      return setError(
+        "Password is too short. It needs to be at least six characters."
+      );
+    }
   };
 
   return (
     <div className="w-50 mx-auto">
       <h2 className="text-center text-light py-3">Registration</h2>
+      {error && <ErrorBox error={error} />}
       <Form onSubmit={handleSubmit}>
         <Form.Group id="first-name" className="mb-3">
           <Form.Label className="text-light">First name</Form.Label>
@@ -23,7 +39,9 @@ const RegistrationForm = () => {
         </Form.Group>
 
         <Form.Group id="last-name" className="mb-3">
-          <Form.Label className="text-light">Last name</Form.Label>
+          <Form.Label auto className="text-light">
+            Last name
+          </Form.Label>
           <Form.Control type="text" ref={lastNameRef} required />
         </Form.Group>
 
