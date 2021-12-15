@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import useAuthContext from "../../hooks/useAuthContext";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import ConfirmUserModal from "./ConfirmUserModal";
 import ErrorBox from "../partials/ErrorBox";
 
 const RegistrationForm = () => {
@@ -10,23 +11,33 @@ const RegistrationForm = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const confirmPasswordRef = useRef("");
+
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const { register } = useAuthContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // set loading to true during validation process
+    setLoading(true);
+
     // checks if password matches each other
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      return setError("Passwords doesn't match each other.");
+      setError("Passwords doesn't match each other.");
+
+      return setLoading(false);
     }
 
     // checks if password is at least six characters.
     if (passwordRef.current.value.length < 6) {
-      return setError(
+      setError(
         "Password is too short. It needs to be at least six characters."
       );
+
+      return setLoading(false);
     }
 
     register({
@@ -38,11 +49,16 @@ const RegistrationForm = () => {
       .then((data) => {
         if (data.status === 201) {
           // show modal which confirms successful registration
+          setShowModal(true);
         } else {
+          setLoading(false);
+
           return setError(data.data.message);
         }
       })
       .catch(() => {
+        setLoading(false);
+
         return setError("An error occured. Please try again!");
       });
   };
@@ -80,11 +96,12 @@ const RegistrationForm = () => {
         <hr className="bg-light my-4" />
 
         <div className="d-grid gap-2">
-          <Button type="submit" variant="dark">
+          <Button disabled={loading} type="submit" variant="dark">
             Register now
           </Button>
         </div>
       </Form>
+      <ConfirmUserModal showModal={showModal} />
     </div>
   );
 };
