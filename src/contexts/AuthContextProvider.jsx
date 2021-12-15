@@ -1,11 +1,23 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import { getJwtAccessToken, storeJwtAccessToken } from "../helpers/index";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [storageUser, setStorageUser] = useLocalStorage("user");
+
+  useEffect(() => {
+    if (!storageUser) {
+      return;
+    }
+
+    // when component mounts, check if storage key: "user" is stored in local storage. If true, load it to state.
+    if (storageUser) {
+      return setCurrentUser(storageUser);
+    }
+  }, []);
 
   // login user
   const login = async (userInformation) => {
@@ -15,8 +27,8 @@ const AuthContextProvider = ({ children }) => {
         .then((data) => {
           // if authentication was successful
           if (data.status === 200) {
-            // store jwt access token inside local storage
-            storeJwtAccessToken(data.data.data.access_token);
+            // store user data and jwt access token inside local storage
+            setStorageUser(data.data.data);
 
             // store user's information inside a state variable
             setCurrentUser(data.data.data);
@@ -40,6 +52,12 @@ const AuthContextProvider = ({ children }) => {
     } catch (error) {
       throw error;
     }
+  };
+
+  const logout = () => {
+    // log out the user by resetting to null
+    setCurrentUser(null);
+    setStorageUser(null);
   };
 
   // registration for new user
@@ -68,7 +86,7 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const contextValues = { currentUser, login, register };
+  const contextValues = { currentUser, login, logout, register };
 
   return (
     <AuthContext.Provider value={contextValues}>

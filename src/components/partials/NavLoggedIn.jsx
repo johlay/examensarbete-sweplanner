@@ -4,7 +4,8 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-const NavLoggedIn = ({ currentUser }) => {
+const NavLoggedIn = ({ currentUser, logout }) => {
+  console.log("logout", logout);
   return (
     <>
       <Navbar.Text className="me-3 text-light">
@@ -18,7 +19,7 @@ const NavLoggedIn = ({ currentUser }) => {
           My profile
         </Link>
         <NavDropdown.Divider />
-        <Link className="dropdown-item" to="">
+        <Link className="dropdown-item" to="/" onClick={() => logout()}>
           Log out
         </Link>
       </NavDropdown>

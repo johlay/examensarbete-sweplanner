@@ -7,7 +7,7 @@ import NavLoggedIn from "./NavLoggedIn";
 import NavNotLoggedIn from "./NavNotLoggedIn";
 
 const Navigation = () => {
-  const { currentUser } = useAuthContext();
+  const { currentUser, logout } = useAuthContext();
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
@@ -21,7 +21,7 @@ const Navigation = () => {
             {!currentUser ? (
               <NavNotLoggedIn />
             ) : (
-              <NavLoggedIn currentUser={currentUser} />
+              <NavLoggedIn currentUser={currentUser} logout={logout} />
             )}
           </Nav>
         </Navbar.Collapse>
