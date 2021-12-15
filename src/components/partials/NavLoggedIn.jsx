@@ -5,10 +5,12 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 const NavLoggedIn = ({ currentUser, logout }) => {
+  console.log({ currentUser });
+
   return (
     <>
       <Navbar.Text className="me-3 text-light">
-        Signed in as: {currentUser?.user?.email}
+        Signed in as: {currentUser?.first_name + " " + currentUser?.last_name}
       </Navbar.Text>
       <NavDropdown
         title={<FontAwesomeIcon icon={faUser} size="1x" color="white" />}

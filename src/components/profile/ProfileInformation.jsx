@@ -16,11 +16,11 @@ const ProfileInformation = () => {
       <p className="text-light">
         Name:{" "}
         <span>
-          {currentUser?.user?.first_name + " " + currentUser?.user?.last_name}
+          {currentUser?.first_name + " " + currentUser?.last_name}
         </span>
       </p>
       <p className="text-light">
-        Email: <span>{currentUser?.user?.email}</span>
+        Email: <span>{currentUser?.email}</span>
       </p>
     </>
   );
