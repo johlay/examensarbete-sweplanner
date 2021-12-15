@@ -51,15 +51,15 @@ const RegistrationForm = () => {
           // show modal which confirms successful registration
           setShowModal(true);
         } else {
-          setLoading(false);
+          setError(data.data.message);
 
-          return setError(data.data.message);
+          return setLoading(false);
         }
       })
       .catch(() => {
-        setLoading(false);
+        setError("An error occured. Please try again!");
 
-        return setError("An error occured. Please try again!");
+        return setLoading(false);
       });
   };
 

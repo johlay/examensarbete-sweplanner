@@ -4,16 +4,23 @@ import axios from "axios";
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
-  // registration for new user
-  const register = async (userInformation) => {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  // login user
+  const login = async (userInformation) => {
     try {
       const response = await axios
-        .post("http://localhost:3001/api/v1/user/register", userInformation)
+        .post("http://localhost:3001/api/v1/user/login", userInformation)
         .then((data) => {
+          // if authentication was successful, store user's information inside a state variable
+          if (data.status === 200) {
+            setCurrentUser(data.data.data);
+          }
+
           // returns a non-error data object
           return {
             status: data.status,
-            data: data,
+            data: data.data,
           };
         })
         .catch((error) => {
@@ -30,7 +37,33 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const contextValues = { register };
+  // registration for new user
+  const register = async (userInformation) => {
+    try {
+      const response = await axios
+        .post("http://localhost:3001/api/v1/user/register", userInformation)
+        .then((data) => {
+          // returns a non-error data object
+          return {
+            status: data.status,
+            data: data.data,
+          };
+        })
+        .catch((error) => {
+          // returns an error object
+          return {
+            status: error.response.status,
+            data: error.response.data,
+          };
+        });
+
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const contextValues = { login, register };
 
   return (
     <AuthContext.Provider value={contextValues}>

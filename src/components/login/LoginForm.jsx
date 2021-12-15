@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import useAuthContext from "../../hooks/useAuthContext";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import ErrorBox from "../partials/ErrorBox";
@@ -11,7 +12,33 @@ const LoginForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {};
+  const { login } = useAuthContext();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    // set loading to true during validation process
+    setLoading(true);
+
+    login({
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    })
+      .then((data) => {
+        if (data.status === 200) {
+          // re-directs user to SwePlanner's Routeplanner if validation is successful.
+        } else {
+          setError(data.data.message);
+
+          return setLoading(false);
+        }
+      })
+      .catch(() => {
+        setError("An error occured. Please try again!");
+
+        return setLoading(false);
+      });
+  };
 
   return (
     <div className="w-50 mx-auto">
