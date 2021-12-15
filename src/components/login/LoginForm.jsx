@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuthContext from "../../hooks/useAuthContext";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -8,6 +8,7 @@ import ErrorBox from "../partials/ErrorBox";
 const LoginForm = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
+  const navigate = useNavigate();
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -27,6 +28,7 @@ const LoginForm = () => {
       .then((data) => {
         if (data.status === 200) {
           // re-directs user to SwePlanner's Routeplanner if validation is successful.
+          navigate("/");
         } else {
           setError(data.data.message);
 

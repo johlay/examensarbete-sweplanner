@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import axios from "axios";
 
 export const AuthContext = createContext();
@@ -63,7 +63,7 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const contextValues = { login, register };
+  const contextValues = { currentUser, login, register };
 
   return (
     <AuthContext.Provider value={contextValues}>

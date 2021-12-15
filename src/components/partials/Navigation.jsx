@@ -1,23 +1,30 @@
-import { Link, NavLink } from "react-router-dom";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import useAuthContext from "../../hooks/useAuthContext";
+import NavLoggedIn from "./NavLoggedIn";
+import NavNotLoggedIn from "./NavNotLoggedIn";
 
 const Navigation = () => {
+  const { currentUser } = useAuthContext();
   return (
-    <Navbar bg="dark" variant="dark">
-      <Container fluid>
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Container>
         <Link to="/" className="navbar-brand">
           <span className="h2">SwePlanner</span>
         </Link>
 
-        <Nav className="justify-content-end">
-          <NavLink className="nav-link" to="/register">
-            Register
-          </NavLink>
-
-          <NavLink className="nav-link" to="/login">
-            Login
-          </NavLink>
-        </Nav>
+        <Navbar.Toggle aria-controls="logged-in-navbar-nav" />
+        <Navbar.Collapse id="logged-in-navbar-nav">
+          <Nav className="ms-auto">
+            {!currentUser ? (
+              <NavNotLoggedIn />
+            ) : (
+              <NavLoggedIn currentUser={currentUser} />
+            )}
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
