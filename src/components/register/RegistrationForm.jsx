@@ -101,6 +101,7 @@ const RegistrationForm = () => {
           </Button>
         </div>
       </Form>
+
       <ConfirmUserModal showModal={showModal} />
     </div>
   );
