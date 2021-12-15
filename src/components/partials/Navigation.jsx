@@ -12,7 +12,7 @@ const Navigation = () => {
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
         <Link to="/" className="navbar-brand">
-          <span className="h2">SwePlanner</span>
+          <h1 className="h2">SwePlanner</h1>
         </Link>
 
         <Navbar.Toggle aria-controls="logged-in-navbar-nav" />

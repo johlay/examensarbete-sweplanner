@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "react-bootstrap/Navbar";
@@ -13,9 +14,13 @@ const NavLoggedIn = ({ currentUser }) => {
         title={<FontAwesomeIcon icon={faUser} size="1x" color="white" />}
         id="nav-dropdown"
       >
-        <NavDropdown.Item href="">My profile</NavDropdown.Item>
+        <Link className="dropdown-item" to="/profile">
+          My profile
+        </Link>
         <NavDropdown.Divider />
-        <NavDropdown.Item href="">Log out</NavDropdown.Item>
+        <Link className="dropdown-item" to="">
+          Log out
+        </Link>
       </NavDropdown>
     </>
   );
