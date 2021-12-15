@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import axios from "axios";
+import { getJwtAccessToken, storeJwtAccessToken } from "../helpers/index";
 
 export const AuthContext = createContext();
 
@@ -12,8 +13,12 @@ const AuthContextProvider = ({ children }) => {
       const response = await axios
         .post("http://localhost:3001/api/v1/user/login", userInformation)
         .then((data) => {
-          // if authentication was successful, store user's information inside a state variable
+          // if authentication was successful
           if (data.status === 200) {
+            // store jwt access token inside local storage
+            storeJwtAccessToken(data.data.data.access_token);
+
+            // store user's information inside a state variable
             setCurrentUser(data.data.data);
           }
 
