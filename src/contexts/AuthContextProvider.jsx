@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [storageUser, setStorageUser] = useLocalStorage("user");
+  const [, setAccessToken] = useLocalStorage("access_token");
 
   useEffect(() => {
     if (!storageUser) {
@@ -28,10 +29,11 @@ const AuthContextProvider = ({ children }) => {
           // if authentication was successful
           if (data.status === 200) {
             // store user data and jwt access token inside local storage
-            setStorageUser(data.data.data);
+            setStorageUser(data.data.data.user);
+            setAccessToken(data.data.data.access_token);
 
             // store user's information inside a state variable
-            setCurrentUser(data.data.data);
+            setCurrentUser(data.data.data.user);
           }
 
           // returns a non-error data object
@@ -58,6 +60,9 @@ const AuthContextProvider = ({ children }) => {
     // log out the user by resetting to null
     setCurrentUser(null);
     setStorageUser(null);
+
+    // set access token to null (local storage)
+    setAccessToken(null);
   };
 
   // registration for new user
