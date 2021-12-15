@@ -11,11 +11,11 @@ const Routeplanner = () => {
       </p>
 
       <div className="my-4">
-        <SelectLocationField />
+        <SelectLocationField placeholder="From" name="From" />
       </div>
 
       <div className="my-4">
-        <SelectLocationField />
+        <SelectLocationField placeholder="To" name="To" />
       </div>
     </>
   );

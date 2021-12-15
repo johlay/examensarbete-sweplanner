@@ -18,6 +18,7 @@ const AuthContextProvider = ({ children }) => {
     if (storageUser) {
       return setCurrentUser(storageUser);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // login user
