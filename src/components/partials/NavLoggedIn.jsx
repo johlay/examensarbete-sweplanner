@@ -5,7 +5,6 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 const NavLoggedIn = ({ currentUser, logout }) => {
-  console.log("logout", logout);
   return (
     <>
       <Navbar.Text className="me-3 text-light">
