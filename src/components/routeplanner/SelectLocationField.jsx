@@ -10,11 +10,11 @@ const SelectLocationField = ({ name, placeholder, select }) => {
   const handleOnChange = (selected) => {
     switch (name) {
       case "From": {
-        select.setSelectFrom(selected);
+        select.setSelectFrom({ ...selected[0] });
         break;
       }
       case "To": {
-        select.setSelectTo(selected);
+        select.setSelectTo({ ...selected[0] });
         break;
       }
       default: {
