@@ -3,13 +3,14 @@ import { useQuery } from "react-query";
 import { search } from "../../services/Api";
 import Button from "react-bootstrap/Button";
 import SelectLocationField from "./SelectLocationField";
-import TravelType from "./TravelType";
+import TimeOptions from "./TimeOptions";
 import TripsResults from "./TripsResults";
 
 const Routeplanner = () => {
   const [searchDetails, setSearchDetails] = useState(null);
   const [selectFrom, setSelectFrom] = useState(null);
   const [selectTo, setSelectTo] = useState(null);
+  const [travelTimeOption, setTravelTimeOption] = useState(null);
 
   const selectProps = { setSelectFrom, setSelectTo };
 
@@ -64,7 +65,10 @@ const Routeplanner = () => {
         <SelectLocationField name="To" placeholder="To" select={selectProps} />
       </div>
 
-      <TravelType />
+      <TimeOptions
+        travelTimeOption={travelTimeOption}
+        setTravelTimeOption={setTravelTimeOption}
+      />
 
       <div className="d-flex justify-content-center my-5">
         <Button onClick={handleSearch} className="w-50" variant="dark">

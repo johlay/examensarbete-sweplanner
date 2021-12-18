@@ -24,7 +24,7 @@ const SelectLocationField = ({ name, placeholder, select }) => {
   };
 
   const handleSearch = async (query) => {
-    const locations = await getLocationName(query);
+    const locations = await getLocationName(encodeURI(query));
 
     setLocations(locations);
   };
