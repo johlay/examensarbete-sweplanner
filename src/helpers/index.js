@@ -3,4 +3,19 @@ const retrieveJwtAccessToken = () => {
   return JSON.parse(localStorage.getItem("access_token"));
 };
 
-export { retrieveJwtAccessToken };
+// check and round :MM of timestamp to nearest "15 minutes"
+const roundTimeMinute = (minute) => {
+  // if time is between HH:00:00 - HH:14:59 --> return "15"
+  if (minute >= 0 && minute < 15) return "15";
+
+  // if time is between HH:15:00 - HH:29:59 --> return "30"
+  if (minute >= 15 && minute < 30) return "30";
+
+  // if time is between HH:30:00 - HH:45:59 --> return "45"
+  if (minute >= 30 && minute < 45) return "45";
+
+  // if time is between HH:45:00 - HH:59:59 --> return "0"
+  if (minute >= 45 && minute < 60) return "0";
+};
+
+export { roundTimeMinute, retrieveJwtAccessToken };

@@ -21,6 +21,7 @@ const Routeplanner = () => {
 
   useEffect(() => {
     refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchDetails]);
 
   const handleSearch = () => {
@@ -32,6 +33,11 @@ const Routeplanner = () => {
 
     // if (!selectTo) {
     //   alert("You need to fill in where you want to go");
+    //   return;
+    // }
+
+    // if (!travelTimeOption) {
+    //   alert("You need to choose when you want to travel");
     //   return;
     // }
 
