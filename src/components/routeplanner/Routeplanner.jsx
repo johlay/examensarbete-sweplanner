@@ -1,5 +1,7 @@
 import { useState } from "react";
+import Button from "react-bootstrap/Button";
 import SelectLocationField from "./SelectLocationField";
+import TravelType from "./TravelType";
 
 const Routeplanner = () => {
   const [selectFrom, setSelectFrom] = useState("");
@@ -26,6 +28,14 @@ const Routeplanner = () => {
 
       <div className="my-4">
         <SelectLocationField name="To" placeholder="To" select={selectProps} />
+      </div>
+
+      <TravelType />
+
+      <div className="d-flex justify-content-center my-5">
+        <Button className="w-50" variant="dark">
+          Search trip
+        </Button>
       </div>
     </>
   );
