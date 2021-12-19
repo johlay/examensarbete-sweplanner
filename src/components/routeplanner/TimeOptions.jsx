@@ -18,6 +18,9 @@ const TimeOptions = ({ travelTimeOption, setTravelTimeOption }) => {
           onChange={() =>
             setTravelTimeOption({
               type: "now",
+              date: now.format("YYYY-MM-DD"),
+              hour: now.format("HH"),
+              minute: roundTimeMinute(now.minute()),
             })
           }
           id="option-now"

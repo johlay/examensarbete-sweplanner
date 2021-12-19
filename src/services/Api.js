@@ -3,7 +3,7 @@
  */
 
 import axios from "axios";
-import { retrieveJwtAccessToken } from "../helpers";
+import { checkTravelType, retrieveJwtAccessToken } from "../helpers";
 
 const jwt_access_token = retrieveJwtAccessToken();
 
@@ -34,9 +34,15 @@ const search = async (searchDetails) => {
 
   // destructuring
   const { from, to } = searchDetails;
+  const {
+    travelTimeOption: { date, hour, minute, type },
+  } = searchDetails;
+
+  // check what what travel type that user has picked.
+  const searchForArrival = checkTravelType(type); // now, departure = returns "0", arrival returns = "1"
 
   const response = await axios.get(
-    `http://localhost:3001/api/v1/routeplanner/routes/?date=2021-12-13&time=18:00&originId=${from}&destId=${to}`,
+    `http://localhost:3001/api/v1/routeplanner/routes/?date=${date}&time=${hour}:${minute}&originId=${from}&destId=${to}&searchForArrival=${searchForArrival}`,
     {
       headers: {
         Authorization: "Bearer " + jwt_access_token,

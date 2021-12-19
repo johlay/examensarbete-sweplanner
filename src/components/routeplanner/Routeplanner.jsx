@@ -45,12 +45,13 @@ const Routeplanner = () => {
     }
 
     // create new variable storing search details.
-    // const newSearchDetails = {
-    //   from: selectFrom?.data?.id,
-    //   to: selectTo?.data?.id,
-    // };
+    const newSearchDetails = {
+      from: selectFrom?.data?.id,
+      to: selectTo?.data?.id,
+      travelTimeOption,
+    };
 
-    // return setSearchDetails(newSearchDetails);
+    return setSearchDetails(newSearchDetails);
   };
 
   return (

@@ -1,3 +1,23 @@
+// check user's selected travel type.
+const checkTravelType = (type) => {
+  switch (type) {
+    case "now": {
+      return "0";
+    }
+    case "departure": {
+      return "0";
+    }
+
+    case "arrival": {
+      return "1";
+    }
+
+    default: {
+      break;
+    }
+  }
+};
+
 // retrieve jwt access token from local storage
 const retrieveJwtAccessToken = () => {
   return JSON.parse(localStorage.getItem("access_token"));
@@ -18,4 +38,4 @@ const roundTimeMinute = (minute) => {
   if (minute >= 45 && minute < 60) return "0";
 };
 
-export { roundTimeMinute, retrieveJwtAccessToken };
+export { checkTravelType, roundTimeMinute, retrieveJwtAccessToken };
