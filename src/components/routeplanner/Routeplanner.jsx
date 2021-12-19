@@ -53,10 +53,9 @@ const Routeplanner = () => {
 
     return setSearchDetails(newSearchDetails);
   };
-
   return (
     <>
-      <h2 className="h3 text-light py-3" id="my-profile">
+      <h2 className="h3 text-light py-3" id="routeplanner-heading">
         Plan your travel
       </h2>
       <p className="text-light">
@@ -88,7 +87,12 @@ const Routeplanner = () => {
 
       {isFetching && <p>Loading...</p>}
 
-      {/* {data && <TripsResults results={data} />} */}
+      {!isFetching && data && (
+        <TripsResults
+          date={travelTimeOption?.date}
+          results={data?.data?.Trip}
+        />
+      )}
 
       <ShowErrorMsgModal
         showModal={showModal}
