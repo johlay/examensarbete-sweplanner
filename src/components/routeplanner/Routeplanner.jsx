@@ -19,6 +19,8 @@ const Routeplanner = () => {
     async () => await search(searchDetails)
   );
 
+  console.log("travelTimeOption:", travelTimeOption);
+
   useEffect(() => {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps

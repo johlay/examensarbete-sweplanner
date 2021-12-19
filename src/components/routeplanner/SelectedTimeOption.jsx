@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { roundTimeMinute } from "../../helpers";
 import dayjs from "dayjs";
 import Form from "react-bootstrap/Form";
@@ -51,20 +50,6 @@ const minutes = [
 
 const SelectedTimeOption = ({ travelTimeOption, setTravelTimeOption }) => {
   const now = dayjs(new Date());
-
-  useEffect(() => {
-    if (travelTimeOption.date) return;
-
-    if (!travelTimeOption.date) {
-      setTravelTimeOption({
-        ...travelTimeOption,
-        date: now.format("YYYY-MM-DD"),
-        hour: now.format("HH"),
-        minute: roundTimeMinute(now.minute()),
-      });
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [travelTimeOption]);
 
   const handleSelectTime = (e, id) => {
     switch (id) {

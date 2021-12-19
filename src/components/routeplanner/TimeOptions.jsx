@@ -1,7 +1,11 @@
+import { roundTimeMinute } from "../../helpers";
+import dayjs from "dayjs";
 import Form from "react-bootstrap/Form";
 import SelectedTimeOption from "./SelectedTimeOption";
 
 const TimeOptions = ({ travelTimeOption, setTravelTimeOption }) => {
+  const now = dayjs(new Date());
+
   return (
     <>
       <p className="text-light">When do you want to travel?</p>
@@ -11,7 +15,11 @@ const TimeOptions = ({ travelTimeOption, setTravelTimeOption }) => {
           label="Now"
           name="travel-type"
           type="radio"
-          onChange={() => setTravelTimeOption({ type: "now" })}
+          onChange={() =>
+            setTravelTimeOption({
+              type: "now",
+            })
+          }
           id="option-now"
         />
         <Form.Check
@@ -19,7 +27,14 @@ const TimeOptions = ({ travelTimeOption, setTravelTimeOption }) => {
           label="Enter departure time"
           name="travel-type"
           type="radio"
-          onChange={() => setTravelTimeOption({ type: "departure" })}
+          onChange={() =>
+            setTravelTimeOption({
+              type: "departure",
+              date: now.format("YYYY-MM-DD"),
+              hour: now.format("HH"),
+              minute: roundTimeMinute(now.minute()),
+            })
+          }
           id="option-departure"
         />
         <Form.Check
@@ -27,7 +42,14 @@ const TimeOptions = ({ travelTimeOption, setTravelTimeOption }) => {
           label="Enter arrival time"
           name="travel-type"
           type="radio"
-          onChange={() => setTravelTimeOption({ type: "arrival" })}
+          onChange={() =>
+            setTravelTimeOption({
+              type: "arrival",
+              date: now.format("YYYY-MM-DD"),
+              hour: now.format("HH"),
+              minute: roundTimeMinute(now.minute()),
+            })
+          }
           id="option-arrival"
         />
       </div>
