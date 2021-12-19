@@ -3,13 +3,16 @@ import { useQuery } from "react-query";
 import { search } from "../../services/Api";
 import Button from "react-bootstrap/Button";
 import SelectLocationField from "./SelectLocationField";
+import ShowErrorMsgModal from "./ShowErrorMsgModal";
 import TimeOptions from "./TimeOptions";
 import TripsResults from "./TripsResults";
 
 const Routeplanner = () => {
+  const [errorMsg, setErrorMsg] = useState(null);
   const [searchDetails, setSearchDetails] = useState(null);
   const [selectFrom, setSelectFrom] = useState(null);
   const [selectTo, setSelectTo] = useState(null);
+  const [showModal, setShowModal] = useState(null);
   const [travelTimeOption, setTravelTimeOption] = useState(null);
 
   const selectProps = { setSelectFrom, setSelectTo };
@@ -19,8 +22,6 @@ const Routeplanner = () => {
     async () => await search(searchDetails)
   );
 
-  console.log("travelTimeOption:", travelTimeOption);
-
   useEffect(() => {
     refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -28,28 +29,28 @@ const Routeplanner = () => {
 
   const handleSearch = () => {
     // checks if all required fields are filled in.
-    // if (!selectFrom) {
-    //   alert("You need to fill in where you want to leave");
-    //   return;
-    // }
+    if (!selectFrom) {
+      setShowModal(true);
+      return setErrorMsg("You need to fill in where you want to leave.");
+    }
 
-    // if (!selectTo) {
-    //   alert("You need to fill in where you want to go");
-    //   return;
-    // }
+    if (!selectTo) {
+      setShowModal(true);
+      return setErrorMsg("You need to fill in where you want to go.");
+    }
 
-    // if (!travelTimeOption) {
-    //   alert("You need to choose when you want to travel");
-    //   return;
-    // }
+    if (!travelTimeOption) {
+      setShowModal(true);
+      return setErrorMsg("You need to choose when you want to travel.");
+    }
 
     // create new variable storing search details.
-    const newSearchDetails = {
-      from: selectFrom?.data?.id,
-      to: selectTo?.data?.id,
-    };
+    // const newSearchDetails = {
+    //   from: selectFrom?.data?.id,
+    //   to: selectTo?.data?.id,
+    // };
 
-    return setSearchDetails(newSearchDetails);
+    // return setSearchDetails(newSearchDetails);
   };
 
   return (
@@ -87,6 +88,13 @@ const Routeplanner = () => {
       {isFetching && <p>Loading...</p>}
 
       {/* {data && <TripsResults results={data} />} */}
+
+      <ShowErrorMsgModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        errorMsg={errorMsg}
+        setErrorMsg={setErrorMsg}
+      />
     </>
   );
 };
