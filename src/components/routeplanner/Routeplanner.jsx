@@ -91,6 +91,8 @@ const Routeplanner = () => {
         <TripsResults
           date={travelTimeOption?.date}
           results={data?.data?.Trip}
+          from={selectFrom?.label}
+          to={selectTo?.label}
         />
       )}
 
