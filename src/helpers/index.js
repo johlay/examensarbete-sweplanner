@@ -34,8 +34,8 @@ const roundTimeMinute = (minute) => {
   // if time is between HH:30:00 - HH:45:59 --> return "45"
   if (minute >= 30 && minute < 45) return "45";
 
-  // if time is between HH:45:00 - HH:59:59 --> return "0"
-  if (minute >= 45 && minute < 60) return "0";
+  // if time is between HH:45:00 - HH:59:59 --> return "00"
+  if (minute >= 45 && minute < 60) return "00";
 };
 
 export { checkTravelType, roundTimeMinute, retrieveJwtAccessToken };
