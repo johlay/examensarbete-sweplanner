@@ -18,6 +18,41 @@ const checkTravelType = (type) => {
   }
 };
 
+// check transport type and return matching fontawesome icon
+const checkTransportType = (type, product) => {
+  // WALK = walk
+  if (type === "WALK") {
+    return ["fas", "walking"];
+  }
+
+  // TRSF = transfers where the traveller has to walk between stations
+  if (type === "TRSF") {
+    return ["fas", "walking"];
+  }
+
+  // JNY = public transport
+  if (type === "JNY") {
+    const buses = ["3", "7", "9"];
+    const ferries = ["8"];
+    const trains = ["1", "2", "4", "5", "6"];
+
+    // check if transport type (product) is bus
+    if (buses.includes(product)) {
+      return ["fas", "bus"];
+    }
+
+    // check if transport type (product) is ferry
+    if (ferries.includes(product)) {
+      return ["fas", "ship"];
+    }
+
+    // check if transport type (product) is train
+    if (trains.includes(product)) {
+      return ["fas", "train"];
+    }
+  }
+};
+
 // retrieve jwt access token from local storage
 const retrieveJwtAccessToken = () => {
   return JSON.parse(localStorage.getItem("access_token"));
@@ -38,4 +73,9 @@ const roundTimeMinute = (minute) => {
   if (minute >= 45 && minute < 60) return "00";
 };
 
-export { checkTravelType, roundTimeMinute, retrieveJwtAccessToken };
+export {
+  checkTransportType,
+  checkTravelType,
+  roundTimeMinute,
+  retrieveJwtAccessToken,
+};

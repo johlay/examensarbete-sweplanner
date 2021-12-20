@@ -1,5 +1,5 @@
+import { checkTransportType } from "../../helpers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBus } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -26,9 +26,12 @@ const TripDetails = ({ tripDetails }) => {
           <span aria-label="icon-transport-type">
             <FontAwesomeIcon
               className="mb-3"
-              icon={faBus}
+              icon={checkTransportType(
+                tripDetails?.type,
+                tripDetails?.Product?.catCode
+              )}
               size="2x"
-              color="light"
+              color="dark"
             />
           </span>
           <p>
