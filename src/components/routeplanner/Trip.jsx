@@ -10,12 +10,19 @@ import TripDetails from "./TripDetails";
 dayjs.extend(customParseFormat);
 
 const Trip = ({ from, to, trip }) => {
-  console.log("trip", trip);
-  // destructuring from first travel origin
-  const { time: originTime } = trip?.LegList?.Leg[0]?.Origin;
-  // destructuring from last travel destination
-  const { time: destinationTime } =
-    trip?.LegList?.Leg[trip.LegList.Leg.length - 1]?.Destination;
+  // details about first travel origin
+  const origin = trip?.LegList?.Leg[0]?.Origin;
+  const originTimestamp = dayjs(
+    `${origin?.date} ${origin?.time}`,
+    "YYYY-MM-DD HH:mm:ss"
+  );
+  // details about last travel destination
+  const destination =
+    trip?.LegList?.Leg[trip?.LegList?.Leg?.length - 1]?.Destination;
+  const destinationTimestamp = dayjs(
+    `${destination?.date} ${destination?.time}`,
+    "YYYY-MM-DD HH:mm:ss"
+  );
 
   return (
     <>
@@ -26,26 +33,25 @@ const Trip = ({ from, to, trip }) => {
               {from} -&gt; {to}
             </p>
             <p className="fw-bold mb-0">
-              {dayjs(originTime, "HH:mm:ss").format("HH:mm")} -{" "}
-              {dayjs(destinationTime, "HH:mm:ss").format("HH:mm")}
+              {dayjs(origin?.time, "HH:mm:ss").format("HH:mm")} -{" "}
+              {dayjs(destination?.time, "HH:mm:ss").format("HH:mm")}
             </p>
             <p className="mb-0">
               Travel time:{" "}
-              {dayjs(destinationTime, "HH:mm:ss").diff(
-                dayjs(originTime, "HH:mm:ss"),
-                "minute"
-              )}
+              {dayjs(destinationTimestamp).diff(originTimestamp, "minute")}
               min
             </p>
           </Col>
           <Col className="d-flex justify-content-end">
-            <ToggleIconAccordion eventKey="0">Click me!</ToggleIconAccordion>
+            <ToggleIconAccordion eventKey="0" />
           </Col>
         </Row>
         <Accordion.Collapse eventKey="0">
           <div>
             <hr className="my-4" />
-            <TripDetails />
+            {trip?.LegList.Leg.map((tripDetails, index) => {
+              return <TripDetails key={index} tripDetails={tripDetails} />;
+            })}
           </div>
         </Accordion.Collapse>
       </Accordion>

@@ -1,11 +1,26 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBus } from "@fortawesome/free-solid-svg-icons";
+import dayjs from "dayjs";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-const TripDetails = () => {
+const TripDetails = ({ tripDetails }) => {
+  // details about origin stop
+  const origin = tripDetails?.Origin;
+  const originTimestamp = dayjs(
+    `${origin?.date} ${origin?.time}`,
+    "YYYY-MM-DD HH:mm:ss"
+  );
+
+  // details about destination stop
+  const destination = tripDetails?.Destination;
+  const destinationTimestamp = dayjs(
+    `${destination?.date} ${destination?.time}`,
+    "YYYY-MM-DD HH:mm:ss"
+  );
+
   return (
-    <div className="border border-1 border-dark mx-5 rounded px-3 py-3">
+    <div className="border border-1 border-dark mx-5 my-3 rounded px-3 py-3">
       <Row>
         <Col>
           <span aria-label="icon-transport-type">
@@ -17,20 +32,28 @@ const TripDetails = () => {
             />
           </span>
           <p>
-            <span aria-label="departure-time">17:55</span>
+            <span aria-label="departure-time">
+              {dayjs(origin?.time, "HH:mm:ss").format("HH:mm")}
+            </span>
             <span aria-label="departure-stop" className="fw-bold ps-3">
-              Malmö Värnhem
+              {origin?.name}
             </span>
           </p>
           <p>
-            <span aria-label="arrival-time">18:02</span>
+            <span aria-label="arrival-time">
+              {dayjs(destination?.time, "HH:mm:ss").format("HH:mm")}
+            </span>
             <span aria-label="arrival-stop" className="fw-bold ps-3">
-              Malmö C
+              {destination?.name}
             </span>
           </p>
         </Col>
         <Col className="d-flex justify-content-end align-items-end">
-          <span>Travel time: 45min</span>
+          <span>
+            Travel time:{" "}
+            {dayjs(destinationTimestamp).diff(originTimestamp, "minute")}
+            min
+          </span>
         </Col>
       </Row>
     </div>
