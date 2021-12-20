@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import SelectLocationField from "./SelectLocationField";
 import ShowErrorMsgModal from "./ShowErrorMsgModal";
 import TimeOptions from "./TimeOptions";
-import TripsResults from "./TripsResults";
+import SearchResults from "./SearchResults";
 
 const Routeplanner = () => {
   const [errorMsg, setErrorMsg] = useState(null);
@@ -88,7 +88,7 @@ const Routeplanner = () => {
       {isFetching && <p>Loading...</p>}
 
       {!isFetching && data && (
-        <TripsResults
+        <SearchResults
           date={travelTimeOption?.date}
           results={data?.data?.Trip}
           from={selectFrom?.label}

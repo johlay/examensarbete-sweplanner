@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import Trip from "./Trip";
 
-const TripsResults = ({ date, results, from, to }) => {
+const SearchResults = ({ date, results, from, to }) => {
   return (
     <>
       <h3 className="text-light py-3" id="search-results-heading-date">
@@ -15,4 +15,4 @@ const TripsResults = ({ date, results, from, to }) => {
   );
 };
 
-export default TripsResults;
+export default SearchResults;
