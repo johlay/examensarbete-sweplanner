@@ -92,9 +92,10 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
-  // refresh user state with updated information
+  // refresh user state and user stored in local storage with updated information
   const refreshUser = (userInformation) => {
     setCurrentUser(userInformation);
+    setStorageUser(userInformation);
   };
 
   const contextValues = { currentUser, login, logout, register, refreshUser };
