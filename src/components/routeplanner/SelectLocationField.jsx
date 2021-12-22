@@ -52,9 +52,12 @@ const SelectLocationField = ({ name, searchHistory, placeholder, select }) => {
             {userSearchedLocations.length > 0 && (
               <>
                 <Menu.Header>You recently searched for:</Menu.Header>
-                {userSearchedLocations?.map((location) => {
+                {userSearchedLocations?.map((location, index) => {
                   return (
-                    <MenuItem option={location} key={location.value}>
+                    <MenuItem
+                      option={location}
+                      key={`${index}-${location.value}`}
+                    >
                       {location.label}
                     </MenuItem>
                   );
