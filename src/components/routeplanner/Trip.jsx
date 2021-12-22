@@ -30,7 +30,7 @@ const Trip = ({ from, to, trip }) => {
         <Row>
           <Col>
             <p className="fw-bold mb-2">
-              {from} -&gt; {to}
+              {origin?.name} -&gt; {destination?.name}
             </p>
             <p className="fw-bold mb-0">
               {dayjs(origin?.time, "HH:mm:ss").format("HH:mm")} -{" "}
