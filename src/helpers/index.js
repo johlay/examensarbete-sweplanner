@@ -73,9 +73,45 @@ const roundTimeMinute = (minute) => {
   if (minute >= 45 && minute < 60) return "00";
 };
 
+// sort and removes duplicates (user's search history) - "SelectLocationField" component
+const sortAndRemoveDuplicates = (searchHistory, name) => {
+  const locationsList = searchHistory.map((stop) => {
+    if (name === "From") {
+      return {
+        value: stop.from.id,
+        label: stop.from.name,
+        created_at: stop.created_at,
+      };
+    }
+
+    if (name === "To") {
+      return {
+        value: stop.to.id,
+        label: stop.to.name,
+        created_at: stop.created_at,
+      };
+    }
+
+    return null;
+  });
+
+  // Create a new identical array without duplicates by storing unique values
+  const uniqueLocationsList = Array.from(
+    new Set(locationsList.map((a) => a.value))
+  ).map((value) => locationsList.find((a) => a.value === value));
+
+  // sort array out - latest search is on top.
+  const sortedList = uniqueLocationsList.sort(
+    (a, b) => new Date(b.created_at) - new Date(a.created_at)
+  );
+
+  return sortedList;
+};
+
 export {
   checkTransportType,
   checkTravelType,
   roundTimeMinute,
   retrieveJwtAccessToken,
+  sortAndRemoveDuplicates,
 };

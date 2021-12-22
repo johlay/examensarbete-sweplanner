@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Typeahead, withAsync } from "react-bootstrap-typeahead";
 import { getLocationName } from "../../services/Api";
+import { sortAndRemoveDuplicates } from "../../helpers/";
 
 const AsyncTypeahead = withAsync(Typeahead);
 
-const SelectLocationField = ({ name, placeholder, select }) => {
+const SelectLocationField = ({ name, searchHistory, placeholder, select }) => {
   const [locations, setLocations] = useState([]);
+  const userSearchedLocations = sortAndRemoveDuplicates(searchHistory, name);
 
   const handleOnChange = (selected) => {
     switch (name) {

@@ -18,7 +18,7 @@ const Routeplanner = () => {
 
   const selectProps = { setSelectFrom, setSelectTo };
 
-  const { refreshUser } = useAuthContext();
+  const { currentUser, refreshUser } = useAuthContext();
 
   const { data, isFetching, refetch } = useQuery(
     [`get-search-results`],
@@ -81,13 +81,19 @@ const Routeplanner = () => {
       <div className="my-4">
         <SelectLocationField
           name="From"
+          searchHistory={currentUser?.search_history}
           select={selectProps}
           placeholder="From"
         />
       </div>
 
       <div className="my-4">
-        <SelectLocationField name="To" placeholder="To" select={selectProps} />
+        <SelectLocationField
+          name="To"
+          searchHistory={currentUser?.search_history}
+          placeholder="To"
+          select={selectProps}
+        />
       </div>
 
       <TimeOptions
