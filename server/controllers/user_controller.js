@@ -109,12 +109,12 @@ const register = async (req, res) => {
   }
 };
 
-// PUT - save user's search results (from, to)
-const user_search_update = async (req, res) => {
+// PUT - save user's search history with reference to routeplanner's location stops (from, to)
+const user_search_update_put = async (req, res) => {
   const { _id } = req.user.payload;
-  const { search_results } = req.body;
+  const { search_history } = req.body;
 
-  const payload = { $push: { search_results } };
+  const payload = { $push: { search_history } };
 
   try {
     const userExists = await User.findById(_id);
@@ -146,4 +146,4 @@ const user_search_update = async (req, res) => {
   }
 };
 
-module.exports = { login, register, user_search_update };
+module.exports = { login, register, user_search_update_put };

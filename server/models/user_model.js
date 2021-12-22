@@ -6,7 +6,7 @@ const UserSchema = new Schema({
   last_name: { type: String, required: true, trim: true },
   email: { type: String, required: true, trim: true },
   password: { type: String, required: true, trim: true },
-  search_results: [
+  search_history: [
     {
       type: new Schema({
         from: {

@@ -7,9 +7,9 @@ const router = express.Router();
 router.post("/login", userController.login);
 router.post("/register", userController.register);
 router.put(
-  "/search-results",
+  "/search-history",
   [verifyJwtAccessToken],
-  userController.user_search_update
+  userController.user_search_update_put
 );
 
 module.exports = router;
