@@ -134,6 +134,9 @@ const user_search_update_put = async (req, res) => {
       // if user does not exist in db - return status code: 404
       if (err) res.sendStatus(404);
       else {
+        // clean out user's password
+        result.password = undefined;
+
         return res.status(200).json({
           status: "success",
           message: "Successfully updated user's list of search results",
