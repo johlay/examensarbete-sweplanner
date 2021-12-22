@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { search } from "../../services/Api";
+import { search, saveSearchHistory } from "../../services/Api";
 import Button from "react-bootstrap/Button";
 import SelectLocationField from "./SelectLocationField";
+import SearchResults from "./SearchResults";
 import ShowErrorMsgModal from "./ShowErrorMsgModal";
 import TimeOptions from "./TimeOptions";
-import SearchResults from "./SearchResults";
+import useAuthContext from "../../hooks/useAuthContext";
 
 const Routeplanner = () => {
   const [errorMsg, setErrorMsg] = useState(null);
@@ -17,6 +18,8 @@ const Routeplanner = () => {
 
   const selectProps = { setSelectFrom, setSelectTo };
 
+  const { refreshUser } = useAuthContext();
+
   const { data, isFetching, refetch } = useQuery(
     [`get-search-results`],
     async () => await search(searchDetails)
@@ -24,8 +27,21 @@ const Routeplanner = () => {
 
   useEffect(() => {
     refetch();
+
+    if (searchDetails) {
+      saveUserSearchHistoryLocations();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchDetails]);
+
+  const saveUserSearchHistoryLocations = async () => {
+    const response = await saveSearchHistory({
+      search_history: { from: selectFrom?.data, to: selectTo?.data },
+    });
+
+    return refreshUser(response.data);
+  };
 
   const handleSearch = () => {
     // checks if all required fields are filled in.

@@ -27,9 +27,26 @@ const getLocationName = async (query) => {
   return locations;
 };
 
+// save logged in user's search input with reference to routeplanner's travel stop (from, to)
+const saveSearchHistory = async (searchDetails) => {
+  // checks if there are any search details, return null if none
+  if (!searchDetails) return null;
+
+  const response = await axios({
+    url: `http://localhost:3001/api/v1/user/search-history`,
+    data: searchDetails,
+    method: "PUT",
+    headers: {
+      Authorization: "Bearer " + jwt_access_token,
+    },
+  });
+
+  return response.data;
+};
+
 // return search results based on user's input
 const search = async (searchDetails) => {
-  // // checks if there is any search details, return null if none
+  // checks if there are any search details, return null if none
   if (!searchDetails) return null;
 
   // destructuring
@@ -53,4 +70,4 @@ const search = async (searchDetails) => {
   return response.data;
 };
 
-export { getLocationName, search };
+export { getLocationName, saveSearchHistory, search };

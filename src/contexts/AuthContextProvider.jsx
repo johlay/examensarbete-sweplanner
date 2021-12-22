@@ -18,7 +18,7 @@ const AuthContextProvider = ({ children }) => {
     if (storageUser) {
       return setCurrentUser(storageUser);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // login user
@@ -92,7 +92,12 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const contextValues = { currentUser, login, logout, register };
+  // refresh user state with updated information
+  const refreshUser = (userInformation) => {
+    setCurrentUser(userInformation);
+  };
+
+  const contextValues = { currentUser, login, logout, register, refreshUser };
 
   return (
     <AuthContext.Provider value={contextValues}>
