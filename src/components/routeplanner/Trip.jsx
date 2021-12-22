@@ -9,7 +9,7 @@ import TripDetails from "./TripDetails";
 // implement custom parse format
 dayjs.extend(customParseFormat);
 
-const Trip = ({ from, to, trip }) => {
+const Trip = ({ trip }) => {
   // details about first travel origin
   const origin = trip?.LegList?.Leg[0]?.Origin;
   const originTimestamp = dayjs(
