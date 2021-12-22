@@ -81,6 +81,7 @@ const sortAndRemoveDuplicates = (searchHistory, name) => {
         value: stop?.from?.id,
         label: stop?.from?.name,
         created_at: stop?.created_at,
+        data: stop?.from,
       };
     }
 
@@ -89,6 +90,7 @@ const sortAndRemoveDuplicates = (searchHistory, name) => {
         value: stop?.to?.id,
         label: stop?.to?.name,
         created_at: stop?.created_at,
+        data: stop?.to,
       };
     }
 
