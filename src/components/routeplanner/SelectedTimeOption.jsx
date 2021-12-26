@@ -1,4 +1,4 @@
-import { roundTimeMinute } from "../../helpers";
+import { roundTimeHour, roundTimeMinute } from "../../helpers";
 import dayjs from "dayjs";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
@@ -105,7 +105,7 @@ const SelectedTimeOption = ({ travelTimeOption, setTravelTimeOption }) => {
             <Form.Label>Hour</Form.Label>
             <Form.Select
               aria-label="hour"
-              defaultValue={now.format("HH")}
+              defaultValue={roundTimeHour(now.hour(), now.minute())}
               onChange={(e) => handleSelectTime(e, "hour")}
             >
               {hours.map((hour) => (
