@@ -7,11 +7,11 @@ const { resrobot_api_key } = require("../config");
 
 // ResRobot Routeplanner - provides routes between two stops or points
 const routeplanner_routes_get = async (req, res) => {
-  const { date, time, originId, destId } = req.query;
+  const { date, time, originId, destId, searchForArrival } = req.query;
 
   try {
     const response = await axios.get(
-      `https://api.resrobot.se/v2/trip?format=json&date=${date}&time=${time}&originId=${originId}&destId=${destId}&lang=en&key=${resrobot_api_key}`
+      `https://api.resrobot.se/v2/trip?format=json&date=${date}&time=${time}&originId=${originId}&destId=${destId}&searchForArrival=${searchForArrival}&lang=en&key=${resrobot_api_key}`
     );
 
     const data = await response.data;
