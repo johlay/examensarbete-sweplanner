@@ -13,7 +13,6 @@ const getLocationName = async (query) => {
     `http://localhost:3001/api/v1/routeplanner/stop-lookup/?location=${query}`,
     {
       headers: {
-        "Access-Control-Allow-Origin": "*",
         Authorization: "Bearer " + jwt_access_token,
       },
     }
