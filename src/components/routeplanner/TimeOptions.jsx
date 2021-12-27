@@ -33,9 +33,15 @@ const TimeOptions = ({ travelTimeOption, setTravelTimeOption }) => {
           onChange={() =>
             setTravelTimeOption({
               type: "departure",
-              date: now.format("YYYY-MM-DD"),
-              hour: now.format("HH"),
-              minute: roundTimeMinute(now.minute()),
+              date: travelTimeOption?.date
+                ? travelTimeOption?.date
+                : now.format("YYYY-MM-DD"),
+              hour: travelTimeOption?.hour
+                ? travelTimeOption?.hour
+                : now.format("HH"),
+              minute: travelTimeOption?.minute
+                ? travelTimeOption?.minute
+                : roundTimeMinute(now.minute()),
             })
           }
           id="option-departure"
@@ -48,9 +54,15 @@ const TimeOptions = ({ travelTimeOption, setTravelTimeOption }) => {
           onChange={() =>
             setTravelTimeOption({
               type: "arrival",
-              date: now.format("YYYY-MM-DD"),
-              hour: now.format("HH"),
-              minute: roundTimeMinute(now.minute()),
+              date: travelTimeOption?.date
+                ? travelTimeOption?.date
+                : now.format("YYYY-MM-DD"),
+              hour: travelTimeOption?.hour
+                ? travelTimeOption?.hour
+                : now.format("HH"),
+              minute: travelTimeOption?.minute
+                ? travelTimeOption?.minute
+                : roundTimeMinute(now.minute()),
             })
           }
           id="option-arrival"
