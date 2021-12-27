@@ -1,4 +1,4 @@
-import { roundTimeMinute } from "../../helpers";
+import { roundTimeHour, roundTimeMinute } from "../../helpers";
 import dayjs from "dayjs";
 import Form from "react-bootstrap/Form";
 import SelectedTimeOption from "./SelectedTimeOption";
@@ -19,7 +19,7 @@ const TimeOptions = ({ travelTimeOption, setTravelTimeOption }) => {
             setTravelTimeOption({
               type: "now",
               date: now.format("YYYY-MM-DD"),
-              hour: now.format("HH"),
+              hour: roundTimeHour(now.hour(), now.minute()),
               minute: roundTimeMinute(now.minute()),
             })
           }
@@ -38,7 +38,7 @@ const TimeOptions = ({ travelTimeOption, setTravelTimeOption }) => {
                 : now.format("YYYY-MM-DD"),
               hour: travelTimeOption?.hour
                 ? travelTimeOption?.hour
-                : now.format("HH"),
+                : roundTimeHour(now.hour(), now.minute()),
               minute: travelTimeOption?.minute
                 ? travelTimeOption?.minute
                 : roundTimeMinute(now.minute()),
@@ -59,7 +59,7 @@ const TimeOptions = ({ travelTimeOption, setTravelTimeOption }) => {
                 : now.format("YYYY-MM-DD"),
               hour: travelTimeOption?.hour
                 ? travelTimeOption?.hour
-                : now.format("HH"),
+                : roundTimeHour(now.hour(), now.minute()),
               minute: travelTimeOption?.minute
                 ? travelTimeOption?.minute
                 : roundTimeMinute(now.minute()),
