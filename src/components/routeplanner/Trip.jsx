@@ -1,28 +1,27 @@
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import duration from "dayjs/plugin/duration";
 import Accordion from "react-bootstrap/Accordion";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import ToggleIconAccordion from "./accordion/ToggleIconAccordion";
 import TripDetails from "./TripDetails";
 
-// implement custom parse format
+// implement additional dayjs formats
 dayjs.extend(customParseFormat);
+dayjs.extend(duration);
 
 const Trip = ({ trip }) => {
   // details about first travel origin
   const origin = trip?.LegList?.Leg[0]?.Origin;
-  const originTimestamp = dayjs(
-    `${origin?.date} ${origin?.time}`,
-    "YYYY-MM-DD HH:mm:ss"
-  );
   // details about last travel destination
   const destination =
     trip?.LegList?.Leg[trip?.LegList?.Leg?.length - 1]?.Destination;
-  const destinationTimestamp = dayjs(
-    `${destination?.date} ${destination?.time}`,
-    "YYYY-MM-DD HH:mm:ss"
-  );
+
+  // time
+  const days = dayjs.duration(trip?.duration).days();
+  const hours = dayjs.duration(trip?.duration).hours();
+  const minutes = dayjs.duration(trip?.duration).minutes();
 
   return (
     <>
@@ -37,9 +36,9 @@ const Trip = ({ trip }) => {
               {dayjs(destination?.time, "HH:mm:ss").format("HH:mm")}
             </p>
             <p className="mb-0">
-              Travel time:{" "}
-              {dayjs(destinationTimestamp).diff(originTimestamp, "minute")}
-              min
+              Travel time: {days !== 0 && `${days}d `}
+              {hours !== 0 && `${hours}h `}
+              {minutes && `${minutes}min`}
             </p>
           </Col>
           <Col className="d-flex justify-content-end">

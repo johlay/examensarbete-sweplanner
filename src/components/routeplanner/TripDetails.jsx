@@ -1,8 +1,12 @@
 import { checkTransportType } from "../../helpers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+
+// implement dayjs duration format
+dayjs.extend(duration);
 
 const TripDetails = ({ tripDetails }) => {
   // details about origin stop
@@ -18,6 +22,17 @@ const TripDetails = ({ tripDetails }) => {
     `${destination?.date} ${destination?.time}`,
     "YYYY-MM-DD HH:mm:ss"
   );
+
+  // time
+  const days = dayjs
+    .duration(destinationTimestamp.diff(originTimestamp))
+    .days();
+  const hours = dayjs
+    .duration(destinationTimestamp.diff(originTimestamp))
+    .hours();
+  const minutes = dayjs
+    .duration(destinationTimestamp.diff(originTimestamp))
+    .minutes();
 
   return (
     <div className="border border-1 border-dark mx-5 my-3 rounded px-3 py-3">
@@ -60,9 +75,9 @@ const TripDetails = ({ tripDetails }) => {
         </Col>
         <Col className="d-flex justify-content-end align-items-end">
           <span>
-            Travel time:{" "}
-            {dayjs(destinationTimestamp).diff(originTimestamp, "minute")}
-            min
+            Travel time: {days !== 0 && `${days}d `}
+            {hours !== 0 && `${hours}h `}
+            {minutes && `${minutes}min`}
           </span>
         </Col>
       </Row>
