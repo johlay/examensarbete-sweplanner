@@ -23,17 +23,24 @@ const TripDetails = ({ tripDetails }) => {
     <div className="border border-1 border-dark mx-5 my-3 rounded px-3 py-3">
       <Row>
         <Col>
-          <span aria-label="icon-transport-type">
-            <FontAwesomeIcon
-              className="mb-3"
-              icon={checkTransportType(
-                tripDetails?.type,
-                tripDetails?.Product?.catCode
-              )}
-              size="2x"
-              color="dark"
-            />
-          </span>
+          <p>
+            <span aria-label="icon-transport-type">
+              <FontAwesomeIcon
+                className="mb-2"
+                icon={checkTransportType(
+                  tripDetails?.type,
+                  tripDetails?.Product?.catCode
+                )}
+                size="2x"
+                color="dark"
+              />
+            </span>
+            <br />
+            <span aria-label="transport-name" className="fw-bold mb-3">
+              {tripDetails?.name}
+            </span>
+          </p>
+
           <p>
             <span aria-label="departure-time">
               {dayjs(origin?.time, "HH:mm:ss").format("HH:mm")}
