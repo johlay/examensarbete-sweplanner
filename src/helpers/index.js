@@ -109,17 +109,17 @@ const sortAndRemoveDuplicates = (searchHistory, name) => {
     return null;
   });
 
-  // Create a new identical array without duplicates by storing unique values
-  const uniqueLocationsList = Array.from(
-    new Set(locationsList?.map((a) => a.value))
-  )?.map((value) => locationsList?.find((a) => a.value === value));
-
   // sort array out - latest search is on top.
-  const sortedList = uniqueLocationsList?.sort(
+  const sortedLocationsList = locationsList?.sort(
     (a, b) => new Date(b?.created_at) - new Date(a?.created_at)
   );
 
-  return sortedList;
+  // Create a new identical array without duplicates by storing unique values (older timestamps are removed and the latest timestamp is kept if the matching values is found)
+  const uniqueLocationsList = Array.from(
+    new Set(sortedLocationsList?.map((a) => a.value))
+  )?.map((value) => sortedLocationsList?.find((a) => a.value === value));
+
+  return uniqueLocationsList;
 };
 
 export {
