@@ -7,7 +7,7 @@ export const AuthContext = createContext();
 const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [storageUser, setStorageUser] = useLocalStorage("user");
-  const [, setAccessToken] = useLocalStorage("access_token");
+  const [accessToken, setAccessToken] = useLocalStorage("access_token");
 
   useEffect(() => {
     if (!storageUser) {
@@ -98,7 +98,14 @@ const AuthContextProvider = ({ children }) => {
     setStorageUser(userInformation);
   };
 
-  const contextValues = { currentUser, login, logout, register, refreshUser };
+  const contextValues = {
+    accessToken,
+    currentUser,
+    login,
+    logout,
+    register,
+    refreshUser,
+  };
 
   return (
     <AuthContext.Provider value={contextValues}>

@@ -19,11 +19,11 @@ const Routeplanner = () => {
 
   const selectProps = { setSelectFrom, setSelectTo };
 
-  const { currentUser, refreshUser } = useAuthContext();
+  const { accessToken, currentUser, refreshUser } = useAuthContext();
 
   const { data, isFetching, refetch } = useQuery(
     [`get-search-results`],
-    async () => await search(searchDetails)
+    async () => await search(searchDetails, accessToken)
   );
 
   useEffect(() => {
@@ -37,9 +37,12 @@ const Routeplanner = () => {
   }, [searchDetails]);
 
   const saveUserSearchHistoryLocations = async () => {
-    const response = await saveSearchHistory({
-      search_history: { from: selectFrom?.data, to: selectTo?.data },
-    });
+    const response = await saveSearchHistory(
+      {
+        search_history: { from: selectFrom?.data, to: selectTo?.data },
+      },
+      accessToken
+    );
 
     return refreshUser(response.data);
   };
@@ -81,6 +84,7 @@ const Routeplanner = () => {
 
       <div className="my-4">
         <SelectLocationField
+          accessToken={accessToken}
           name="From"
           searchHistory={currentUser?.search_history}
           select={selectProps}
@@ -90,6 +94,7 @@ const Routeplanner = () => {
 
       <div className="my-4">
         <SelectLocationField
+          accessToken={accessToken}
           name="To"
           searchHistory={currentUser?.search_history}
           placeholder="To"

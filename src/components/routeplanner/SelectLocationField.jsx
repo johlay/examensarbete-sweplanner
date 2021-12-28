@@ -11,7 +11,13 @@ import { sortAndRemoveDuplicates } from "../../helpers/";
 
 const AsyncTypeahead = withAsync(Typeahead);
 
-const SelectLocationField = ({ name, searchHistory, placeholder, select }) => {
+const SelectLocationField = ({
+  accessToken,
+  name,
+  searchHistory,
+  placeholder,
+  select,
+}) => {
   const [locations, setLocations] = useState([]);
   const userSearchedLocations = sortAndRemoveDuplicates(searchHistory, name);
 
@@ -32,7 +38,7 @@ const SelectLocationField = ({ name, searchHistory, placeholder, select }) => {
   };
 
   const handleSearch = async (query) => {
-    const locations = await getLocationName(encodeURI(query));
+    const locations = await getLocationName(encodeURI(query), accessToken);
 
     setLocations(locations);
   };

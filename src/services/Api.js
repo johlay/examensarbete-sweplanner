@@ -3,17 +3,15 @@
  */
 
 import axios from "axios";
-import { checkTravelType, retrieveJwtAccessToken } from "../helpers";
-
-const jwt_access_token = retrieveJwtAccessToken();
+import { checkTravelType } from "../helpers";
 
 // get locations based on user's search query for: "select location field box"
-const getLocationName = async (query) => {
+const getLocationName = async (query, accessToken) => {
   const response = await axios.get(
     `http://localhost:3001/api/v1/routeplanner/stop-lookup/?location=${query}`,
     {
       headers: {
-        Authorization: "Bearer " + jwt_access_token,
+        Authorization: "Bearer " + accessToken,
       },
     }
   );
@@ -28,7 +26,7 @@ const getLocationName = async (query) => {
 };
 
 // save logged in user's search input with reference to routeplanner's travel stop (from, to)
-const saveSearchHistory = async (searchDetails) => {
+const saveSearchHistory = async (searchDetails, accessToken) => {
   // checks if there are any search details, return null if none
   if (!searchDetails) return null;
 
@@ -37,7 +35,7 @@ const saveSearchHistory = async (searchDetails) => {
     data: searchDetails,
     method: "PUT",
     headers: {
-      Authorization: "Bearer " + jwt_access_token,
+      Authorization: "Bearer " + accessToken,
     },
   });
 
@@ -45,7 +43,7 @@ const saveSearchHistory = async (searchDetails) => {
 };
 
 // return search results based on user's input
-const search = async (searchDetails) => {
+const search = async (searchDetails, accessToken) => {
   // checks if there are any search details, return null if none
   if (!searchDetails) return null;
 
@@ -62,7 +60,7 @@ const search = async (searchDetails) => {
     `http://localhost:3001/api/v1/routeplanner/routes/?date=${date}&time=${hour}:${minute}&originId=${from}&destId=${to}&searchForArrival=${searchForArrival}`,
     {
       headers: {
-        Authorization: "Bearer " + jwt_access_token,
+        Authorization: "Bearer " + accessToken,
       },
     }
   );
