@@ -19,7 +19,7 @@ const ErrorMsgModal = ({
       show={showModal}
       centered
     >
-      <Modal.Body className="bg-">
+      <Modal.Body>
         <h3 className="text-center">Invalid!</h3>
         <p className="text-center">{errorMsg}</p>
       </Modal.Body>

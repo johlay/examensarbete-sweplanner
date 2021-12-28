@@ -17,7 +17,7 @@ const HttpErrorModal = ({ showHttpErrorModal, setShowHttpErrorModal }) => {
       show={showHttpErrorModal?.status}
       centered
     >
-      <Modal.Body className="bg-">
+      <Modal.Body>
         <h3 className="text-center">{showHttpErrorModal?.error?.statusText}</h3>
         <p className="text-center">Please try to login again.</p>
       </Modal.Body>

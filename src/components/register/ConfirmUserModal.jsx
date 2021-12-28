@@ -12,7 +12,7 @@ const ConfirmUserModal = ({ showModal }) => {
       show={showModal}
       centered
     >
-      <Modal.Body className="bg-">
+      <Modal.Body>
         <h3 className="text-center">Congratulations!</h3>
         <p className="text-center">
           Your account has been successfully created. You can now login.
