@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { search, saveSearchHistory } from "../../services/Api";
 import Button from "react-bootstrap/Button";
+import LoadingIndicator from "../partials/LoadingIndicator";
 import SelectLocationField from "./SelectLocationField";
 import SearchResults from "./SearchResults";
 import ShowErrorMsgModal from "./ShowErrorMsgModal";
@@ -107,7 +108,7 @@ const Routeplanner = () => {
         </Button>
       </div>
 
-      {isFetching && <p>Loading...</p>}
+      {isFetching && <LoadingIndicator />}
 
       {!isFetching && data && (
         <SearchResults
