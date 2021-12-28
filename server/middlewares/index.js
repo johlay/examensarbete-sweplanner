@@ -7,7 +7,7 @@ const verifyJwtAccessToken = (req, res, next) => {
   // Remove "Bearer " from authorization header
   const jwt_access_token = authorization.replace("Bearer", "").trim();
 
-  if (!jwt_access_token)
+  if (!jwt_access_token || jwt_access_token === "undefined")
     res
       .status(500)
       .json({ status: "error", message: "No token was found in HTTP request" });

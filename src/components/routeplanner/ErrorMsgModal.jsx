@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const ShowErrorMsgModal = ({
+const ErrorMsgModal = ({
   errorMsg,
   setErrorMsg,
   showModal,
@@ -15,7 +15,7 @@ const ShowErrorMsgModal = ({
   return (
     <Modal
       size="lg"
-      aria-labelledby="confirm-user-modal"
+      aria-labelledby="show-error-msg-modal"
       show={showModal}
       centered
     >
@@ -24,10 +24,12 @@ const ShowErrorMsgModal = ({
         <p className="text-center">{errorMsg}</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="dark" onClick={handleOnClick}>Continue</Button>
+        <Button variant="dark" onClick={handleOnClick}>
+          Continue
+        </Button>
       </Modal.Footer>
     </Modal>
   );
 };
 
-export default ShowErrorMsgModal;
+export default ErrorMsgModal;

@@ -7,14 +7,22 @@ import { checkTravelType } from "../helpers";
 
 // get locations based on user's search query for: "select location field box"
 const getLocationName = async (query, accessToken) => {
-  const response = await axios.get(
-    `http://localhost:3001/api/v1/routeplanner/stop-lookup/?location=${query}`,
-    {
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
-    }
-  );
+  const response = await axios
+    .get(
+      `http://localhost:3001/api/v1/routeplanner/stop-lookup/?location=${query}`,
+      {
+        headers: {
+          Authorization: "Bearer " + accessToken,
+        },
+      }
+    )
+    .then((data) => data)
+    .catch((error) => error.response);
+
+  // if response status is not 200 then return the error object
+  if (response.status !== 200) {
+    return { error: response };
+  }
 
   const data = await response.data;
 
@@ -22,7 +30,7 @@ const getLocationName = async (query, accessToken) => {
     return { value: location?.id, label: location?.name, data: location };
   });
 
-  return locations;
+  return { data: locations };
 };
 
 // save logged in user's search input with reference to routeplanner's travel stop (from, to)

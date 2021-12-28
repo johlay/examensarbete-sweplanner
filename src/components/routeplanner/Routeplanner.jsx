@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { search, saveSearchHistory } from "../../services/Api";
 import Button from "react-bootstrap/Button";
+import ErrorMsgModal from "./ErrorMsgModal";
 import LoadingIndicator from "../partials/LoadingIndicator";
+import HttpErrorModal from "../http/HttpErrorModal";
 import SelectLocationField from "./SelectLocationField";
 import SearchResults from "./SearchResults";
-import ShowErrorMsgModal from "./ShowErrorMsgModal";
 import TimeOptions from "./TimeOptions";
 import useAuthContext from "../../hooks/useAuthContext";
 
@@ -14,6 +15,7 @@ const Routeplanner = () => {
   const [searchDetails, setSearchDetails] = useState(null);
   const [selectFrom, setSelectFrom] = useState(null);
   const [selectTo, setSelectTo] = useState(null);
+  const [showHttpErrorModal, setShowHttpErrorModal] = useState(null);
   const [showModal, setShowModal] = useState(null);
   const [travelTimeOption, setTravelTimeOption] = useState(null);
 
@@ -88,6 +90,7 @@ const Routeplanner = () => {
           name="From"
           searchHistory={currentUser?.search_history}
           select={selectProps}
+          setShowHttpErrorModal={setShowHttpErrorModal}
           placeholder="From"
         />
       </div>
@@ -96,9 +99,10 @@ const Routeplanner = () => {
         <SelectLocationField
           accessToken={accessToken}
           name="To"
-          searchHistory={currentUser?.search_history}
           placeholder="To"
+          searchHistory={currentUser?.search_history}
           select={selectProps}
+          setShowHttpErrorModal={setShowHttpErrorModal}
         />
       </div>
 
@@ -123,11 +127,16 @@ const Routeplanner = () => {
         />
       )}
 
-      <ShowErrorMsgModal
+      <ErrorMsgModal
         showModal={showModal}
         setShowModal={setShowModal}
         errorMsg={errorMsg}
         setErrorMsg={setErrorMsg}
+      />
+
+      <HttpErrorModal
+        showHttpErrorModal={showHttpErrorModal}
+        setShowHttpErrorModal={setShowHttpErrorModal}
       />
     </>
   );

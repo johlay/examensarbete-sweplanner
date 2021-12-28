@@ -17,6 +17,7 @@ const SelectLocationField = ({
   searchHistory,
   placeholder,
   select,
+  setShowHttpErrorModal,
 }) => {
   const [locations, setLocations] = useState([]);
   const userSearchedLocations = sortAndRemoveDuplicates(searchHistory, name);
@@ -38,9 +39,20 @@ const SelectLocationField = ({
   };
 
   const handleSearch = async (query) => {
-    const locations = await getLocationName(encodeURI(query), accessToken);
+    const { data: locations, error } = await getLocationName(
+      encodeURI(query),
+      accessToken
+    );
 
-    setLocations(locations);
+    // if an error occured, show http error modal
+    if (error) {
+      return setShowHttpErrorModal({ error, status: true });
+    }
+
+    // if there is data, store the data inside state variable
+    if (locations) {
+      return setLocations(locations);
+    }
   };
 
   const renderCustomMenu = (results, menuProps, state) => {
