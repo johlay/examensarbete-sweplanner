@@ -5,7 +5,7 @@
 import axios from "axios";
 import { checkTravelType } from "../helpers";
 
-const base_url = process.env.REACT_APP_REST_API_BASE_URL;
+const base_url = process.env.REACT_APP_REST_API_BASE_URL ?? "";
 
 // get locations based on user's search query for: "select location field box"
 const getLocationName = async (query, accessToken) => {

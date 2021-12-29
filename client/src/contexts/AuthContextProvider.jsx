@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import useLocalStorage from "../hooks/useLocalStorage";
 
-const base_url = process.env.REACT_APP_REST_API_BASE_URL;
+const base_url = process.env.REACT_APP_REST_API_BASE_URL ?? "";
 
 export const AuthContext = createContext();
 
