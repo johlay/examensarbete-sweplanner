@@ -20,7 +20,7 @@ const getLocationName = async (query, accessToken) => {
     .catch((error) => error.response);
 
   // if response status is not 200 then return the error object
-  if (response.status !== 200) {
+  if (response?.status !== 200) {
     return { error: response };
   }
 

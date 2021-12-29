@@ -19,7 +19,7 @@ const TimeOptions = ({ travelTimeOption, setTravelTimeOption }) => {
             setTravelTimeOption({
               type: "now",
               date: now.format("YYYY-MM-DD"),
-              hour: roundTimeHour(now.format("HH"), now.minute()),
+              hour: roundTimeHour(now.hour(), now.minute()),
               minute: roundTimeMinute(now.minute()),
             })
           }
@@ -38,7 +38,7 @@ const TimeOptions = ({ travelTimeOption, setTravelTimeOption }) => {
                 : now.format("YYYY-MM-DD"),
               hour: travelTimeOption?.hour
                 ? travelTimeOption?.hour
-                : roundTimeHour(now.format("HH"), now.minute()),
+                : roundTimeHour(now.hour(), now.minute()),
               minute: travelTimeOption?.minute
                 ? travelTimeOption?.minute
                 : roundTimeMinute(now.minute()),
