@@ -51,14 +51,18 @@ const Routeplanner = () => {
 
   const handleSearch = () => {
     // checks if all required fields are filled in.
-    if (!selectFrom) {
+    if (!selectFrom?.value) {
       setShowModal(true);
-      return setErrorMsg("You need to fill in where you want to leave.");
+      return setErrorMsg(
+        "You need to select the location where you want to leave."
+      );
     }
 
-    if (!selectTo) {
+    if (!selectTo?.value) {
       setShowModal(true);
-      return setErrorMsg("You need to fill in where you want to go.");
+      return setErrorMsg(
+        "You need to select the location where you want to go."
+      );
     }
 
     if (!travelTimeOption) {
@@ -112,7 +116,7 @@ const Routeplanner = () => {
       />
 
       <div className="d-flex justify-content-center my-5">
-        <Button onClick={handleSearch} className="w-50" variant="dark">
+        <Button onClick={handleSearch} className="w-25" variant="dark">
           Search trip
         </Button>
       </div>
