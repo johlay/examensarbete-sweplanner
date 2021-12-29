@@ -2,6 +2,8 @@ import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import useLocalStorage from "../hooks/useLocalStorage";
 
+const base_url = process.env.REACT_APP_REST_API_BASE_URL;
+
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
@@ -25,7 +27,7 @@ const AuthContextProvider = ({ children }) => {
   const login = async (userInformation) => {
     try {
       const response = await axios
-        .post("http://localhost:3001/api/v1/user/login", userInformation)
+        .post(`${base_url}/api/v1/user/login`, userInformation)
         .then((data) => {
           // if authentication was successful
           if (data.status === 200) {
@@ -70,7 +72,7 @@ const AuthContextProvider = ({ children }) => {
   const register = async (userInformation) => {
     try {
       const response = await axios
-        .post("http://localhost:3001/api/v1/user/register", userInformation)
+        .post(`${base_url}/api/v1/user/register`, userInformation)
         .then((data) => {
           // returns a non-error data object
           return {

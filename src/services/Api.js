@@ -5,17 +5,16 @@
 import axios from "axios";
 import { checkTravelType } from "../helpers";
 
+const base_url = process.env.REACT_APP_REST_API_BASE_URL;
+
 // get locations based on user's search query for: "select location field box"
 const getLocationName = async (query, accessToken) => {
   const response = await axios
-    .get(
-      `http://localhost:3001/api/v1/routeplanner/stop-lookup/?location=${query}`,
-      {
-        headers: {
-          Authorization: "Bearer " + accessToken,
-        },
-      }
-    )
+    .get(`${base_url}/api/v1/routeplanner/stop-lookup/?location=${query}`, {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
     .then((data) => data)
     .catch((error) => error.response);
 
@@ -39,7 +38,7 @@ const saveSearchHistory = async (searchDetails, accessToken) => {
   if (!searchDetails) return null;
 
   const response = await axios({
-    url: `http://localhost:3001/api/v1/user/search-history`,
+    url: `${base_url}/api/v1/user/search-history`,
     data: searchDetails,
     method: "PUT",
     headers: {
@@ -65,7 +64,7 @@ const search = async (searchDetails, accessToken) => {
   const searchForArrival = checkTravelType(type); // now, departure = returns "0", arrival returns = "1"
 
   const response = await axios.get(
-    `http://localhost:3001/api/v1/routeplanner/routes/?date=${date}&time=${hour}:${minute}&originId=${from}&destId=${to}&searchForArrival=${searchForArrival}`,
+    `${base_url}/api/v1/routeplanner/routes/?date=${date}&time=${hour}:${minute}&originId=${from}&destId=${to}&searchForArrival=${searchForArrival}`,
     {
       headers: {
         Authorization: "Bearer " + accessToken,
