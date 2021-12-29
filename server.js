@@ -1,4 +1,5 @@
 const { port, db_connection } = require("./config");
+const path = require("path");
 
 // Server setup
 const express = require("express");
@@ -18,6 +19,15 @@ app.use(express.json());
 
 // Routes
 app.use("/api/v1", require("./routes"));
+
+// If node environment is set to "production" - serve static files to built version of client's app
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.resolve(__dirname, "./client/build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+  });
+}
 
 // Server
 app.listen(port, (err) => {
