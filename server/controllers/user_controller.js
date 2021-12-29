@@ -32,13 +32,23 @@ const login = async (req, res) => {
       // clean out user's password
       user.password = undefined;
 
+      // destructuring
+      const { _id, first_name, last_name, email } = user;
+
       // payload
       const payload = user;
 
+      // payload for jwt (keeping the jwt access token small - minimizing HTTP request header size)
+      const payload_jwt_sign = { _id, first_name, last_name, email };
+
       // use JWT to sign payload and get access token
-      const jwt_access_token = jwt.sign({ payload }, jwt_access_token_secret, {
-        expiresIn: jwt_access_token_expires,
-      });
+      const jwt_access_token = jwt.sign(
+        { payload_jwt_sign },
+        jwt_access_token_secret,
+        {
+          expiresIn: jwt_access_token_expires,
+        }
+      );
 
       // return jwt token and payload as a response.
       return res.status(200).json({
