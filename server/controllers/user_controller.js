@@ -39,16 +39,12 @@ const login = async (req, res) => {
       const payload = user;
 
       // payload for jwt (keeping the jwt access token small - minimizing HTTP request header size)
-      const payload_jwt_sign = { _id, first_name, last_name, email };
+      const payload_jwt = { _id, first_name, last_name, email };
 
       // use JWT to sign payload and get access token
-      const jwt_access_token = jwt.sign(
-        { payload_jwt_sign },
-        jwt_access_token_secret,
-        {
-          expiresIn: jwt_access_token_expires,
-        }
-      );
+      const jwt_access_token = jwt.sign(payload_jwt, jwt_access_token_secret, {
+        expiresIn: jwt_access_token_expires,
+      });
 
       // return jwt token and payload as a response.
       return res.status(200).json({
@@ -121,7 +117,7 @@ const register = async (req, res) => {
 
 // PUT - save user's search history with reference to routeplanner's location stops (from, to)
 const user_search_update_put = async (req, res) => {
-  const { _id } = req.user.payload;
+  const { _id } = req.user;
   const { search_history } = req.body;
 
   const payload = { $push: { search_history } };
