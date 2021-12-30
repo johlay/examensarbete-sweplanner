@@ -51,8 +51,13 @@ const TripDetails = ({ tripDetails }) => {
               />
             </span>
             <br />
-            <span aria-label="transport-name-and-direction" className="fw-bold mb-3">
-              {tripDetails?.name} towards {tripDetails?.direction}
+            <span
+              aria-label="transport-name-and-direction"
+              className="fw-bold mb-3"
+            >
+              {tripDetails?.name}{" "}
+              {tripDetails?.type !== "WALK" &&
+                `towards ${tripDetails?.direction}`}
             </span>
           </p>
 
