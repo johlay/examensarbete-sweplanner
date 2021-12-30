@@ -23,13 +23,13 @@ const Routeplanner = () => {
 
   const { accessToken, currentUser, refreshUser } = useAuthContext();
 
-  const { data, isFetching, refetch } = useQuery(
+  const searchQuery = useQuery(
     [`get-search-results`],
     async () => await search(searchDetails, accessToken)
   );
 
   useEffect(() => {
-    refetch();
+    searchQuery.refetch();
 
     if (searchDetails) {
       saveUserSearchHistoryLocations();
@@ -121,11 +121,18 @@ const Routeplanner = () => {
         </Button>
       </div>
 
-      {isFetching && <LoadingIndicator />}
+      {searchQuery.isFetching && <LoadingIndicator />}
 
-      {!isFetching && data && (
+      {searchQuery.isError && (
+        <>
+          <hr className="bg-white" />
+          <p className="text-white h4">No results found</p>
+        </>
+      )}
+
+      {!searchQuery.isFetching && searchQuery?.data && (
         <SearchResults
-          results={data?.data?.Trip}
+          results={searchQuery?.data?.data?.Trip}
           from={selectFrom?.label}
           to={selectTo?.label}
         />
