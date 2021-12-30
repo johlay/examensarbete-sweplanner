@@ -85,7 +85,7 @@ const Routeplanner = () => {
         Plan your travel
       </h2>
       <p className="text-light">
-        You can search between stops, addresses, or locations
+        You can search between stops or locations
       </p>
 
       <div className="my-4">
