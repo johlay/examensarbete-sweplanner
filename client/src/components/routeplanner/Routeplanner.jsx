@@ -116,7 +116,12 @@ const Routeplanner = () => {
       />
 
       <div className="d-flex justify-content-center my-5">
-        <Button onClick={handleSearch} className="w-50" variant="dark">
+        <Button
+          disabled={searchQuery?.isFetching}
+          onClick={handleSearch}
+          className="w-50"
+          variant="dark"
+        >
           Search trip
         </Button>
       </div>
