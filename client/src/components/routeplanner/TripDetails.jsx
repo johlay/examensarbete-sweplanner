@@ -51,24 +51,24 @@ const TripDetails = ({ tripDetails }) => {
               />
             </span>
             <br />
-            <span aria-label="transport-name" className="fw-bold mb-3">
-              {tripDetails?.name}
+            <span aria-label="transport-name-and-direction" className="fw-bold mb-3">
+              {tripDetails?.name} towards {tripDetails?.direction}
             </span>
           </p>
 
           <p>
-            <span aria-label="departure-time">
+            <span aria-label="departure-time" className="fw-bold">
               {dayjs(origin?.time, "HH:mm:ss").format("HH:mm")}
             </span>
-            <span aria-label="departure-stop" className="fw-bold ps-3">
+            <span aria-label="departure-stop" className="ps-3">
               {origin?.name}
             </span>
           </p>
           <p>
-            <span aria-label="arrival-time">
+            <span aria-label="arrival-time" className="fw-bold">
               {dayjs(destination?.time, "HH:mm:ss").format("HH:mm")}
             </span>
-            <span aria-label="arrival-stop" className="fw-bold ps-3">
+            <span aria-label="arrival-stop" className="ps-3">
               {destination?.name}
             </span>
           </p>
