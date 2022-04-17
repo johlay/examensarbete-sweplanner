@@ -10,7 +10,7 @@ const roundTimeHour = (hour, minute) => {
   if (hour === 9 && minute >= 0 && minute < 45) return "09";
 
   // if HH is not 9 and MM is between HH:00:00 - HH:44:59 --> return same hour
-  if (hour !== 9 && minute >= 0 && minute < 45) return String(hour);
+  if (hour !== 9 && minute >= 0 && minute < 45) return String("0" + hour);
 
   // // if HH is not 9 and MM is between HH:45:00 - HH:59:59 --> return next upcoming hour
   if (hour !== 9 && minute >= 45 && minute < 60) return String(hour + 1);
