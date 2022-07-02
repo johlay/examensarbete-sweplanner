@@ -44,7 +44,7 @@ const TripDetails = ({ tripDetails }) => {
                 className="mb-2"
                 icon={checkTransportType(
                   tripDetails?.type,
-                  tripDetails?.Product?.catCode
+                  tripDetails?.Product[0]?.catCode
                 )}
                 size="2x"
                 color="dark"

@@ -6,7 +6,7 @@ import {
   Typeahead,
   withAsync,
 } from "react-bootstrap-typeahead";
-import { getLocationName } from "../../services/Api";
+import { getLocationName } from "../../services/Api_v2";
 import { sortAndRemoveDuplicates } from "../../helpers/";
 
 const AsyncTypeahead = withAsync(Typeahead);
