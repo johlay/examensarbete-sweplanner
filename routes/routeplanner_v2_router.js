@@ -1,4 +1,4 @@
-const routeplannerController = require("../controllers/routeplanner_controller");
+const routeplannerController = require("../controllers/routeplanner_v2_controller");
 
 const express = require("express");
 const router = express.Router();

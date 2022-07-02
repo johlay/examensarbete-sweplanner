@@ -1,5 +1,5 @@
 /**
- * Routeplanner controller is using ResRobot's API - an API from Trafiklab
+ * Routeplanner controller is using ResRobot's API version 1 - an API from Trafiklab
  */
 
 const axios = require("axios");
