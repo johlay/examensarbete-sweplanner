@@ -72,8 +72,8 @@ const Routeplanner = () => {
 
     // create new variable storing search details.
     const newSearchDetails = {
-      from: selectFrom?.data?.id,
-      to: selectTo?.data?.id,
+      from: selectFrom?.data?.extId,
+      to: selectTo?.data?.extId,
       travelTimeOption,
     };
 
@@ -84,9 +84,7 @@ const Routeplanner = () => {
       <h2 className="h3 text-light py-3" id="routeplanner-heading">
         Plan your travel
       </h2>
-      <p className="text-light">
-        You can search between stops or locations
-      </p>
+      <p className="text-light">You can search between stops or locations</p>
 
       <div className="my-4">
         <SelectLocationField
